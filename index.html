@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Level Up CHECHU</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Press Start 2P', cursive;
+color:white;
+text-align:center;
+overflow-x:hidden;
+background:black;
+}
+
+/* GRID FONDO */
+
+body::before{
+content:"";
+position:fixed;
+width:200%;
+height:200%;
+background:
+linear-gradient(#00ffe133 1px, transparent 1px),
+linear-gradient(90deg,#00ffe133 1px, transparent 1px);
+background-size:60px 60px;
+transform:perspective(400px) rotateX(60deg);
+animation:gridMove 20s linear infinite;
+z-index:-1;
+}
+
+@keyframes gridMove{
+from{background-position:0 0}
+to{background-position:0 60px}
+}
+
+/* START */
+
+#startScreen{
+position:fixed;
+width:100%;
+height:100%;
+background:black;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:100;
+}
+
+.coin{
+font-size:22px;
+color:#ffd54a;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+50%{opacity:0}
+}
+
+.startBtn{
+margin-top:30px;
+background:#00ffe1;
+border:none;
+padding:20px 40px;
+cursor:pointer;
+box-shadow:0 0 25px #00ffe1;
+}
+
+/* CONTENIDO */
+
+.container{
+display:none;
+padding:60px 20px;
+max-width:1300px;
+margin:auto;
+}
+
+.card{
+background:rgba(0,0,0,0.75);
+border:2px solid #00ffe1;
+padding:40px;
+margin:40px auto;
+border-radius:14px;
+transition:.4s;
+}
+
+.card:hover{
+transform:scale(1.03);
+box-shadow:0 0 40px #00ffe1;
+}
+
+.bar{
+width:420px;
+height:30px;
+background:#111;
+margin:30px auto;
+border-radius:20px;
+overflow:hidden;
+border:2px solid #00ffe1;
+}
+
+.fill{
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#00ffe1,#00ff6a);
+animation:load 6s forwards;
+}
+
+@keyframes load{
+from{width:0}
+to{width:100%}
+}
+
+.levelup{
+font-size:60px;
+color:#00ff6a;
+text-shadow:0 0 30px #00ff6a;
+animation:pulse 1.5s infinite alternate;
+}
+
+@keyframes pulse{
+from{transform:scale(1)}
+to{transform:scale(1.15)}
+}
+
+.carousel{
+position:relative;
+max-width:900px;
+margin:auto;
+}
+
+.carousel img{
+width:100%;
+border-radius:12px;
+transition:1s;
+}
+
+.carousel img:hover{
+transform:scale(1.05);
+}
+
+.navBtn{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:#00ffe1;
+border:none;
+padding:12px;
+cursor:pointer;
+}
+
+.prev{left:0}
+.next{right:0}
+
+.countdown{
+color:#ff4df0;
+font-size:20px;
+margin-top:20px;
+}
+
+.gpsBtn,.waBtn{
+display:inline-block;
+margin-top:20px;
+background:#00ffe1;
+color:black;
+padding:16px 28px;
+text-decoration:none;
+border-radius:10px;
+box-shadow:0 0 15px #00ffe1;
+}
+
+.waBtn{
+animation:shake 2s infinite;
+}
+
+@keyframes shake{
+0%{transform:rotate(0)}
+25%{transform:rotate(2deg)}
+50%{transform:rotate(0)}
+75%{transform:rotate(-2deg)}
+100%{transform:rotate(0)}
+}
+
+.confetti{
+position:fixed;
+width:8px;
+height:8px;
+top:-10px;
+animation:fall 3s linear infinite;
+}
+
+@keyframes fall{
+to{transform:translateY(100vh)}
+}
+
+iframe{
+box-shadow:0 0 30px #00ffe1;
+border-radius:12px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="startScreen">
+<h1>🎮 CHECHU</h1>
+<div class="coin">INSERT COIN</div>
+<button class="startBtn" onclick="startGame()">PRESS START</button>
+</div>
+
+<div class="container" id="main">
+
+<h1>LEVEL COMPLETE</h1>
+<h2>Nivel 39 completado</h2>
+
+<div class="bar"><div class="fill"></div></div>
+
+<div class="levelup">LEVEL UP 40</div>
+
+<div class="countdown" id="countdown"></div>
+
+<div class="card">
+<h2>🎯 MISIÓN</h2>
+<h2>Celebrar el LEVEL UP de CHECHU</h2>
+
+<p>📅 24/04/2026</p>
+<p>🕒 21:00 HS</p>
+<p>📍 CLUB ESCALANTITO</p>
+
+<iframe
+src="https://www.google.com/maps?q=-31.6197018,-60.7007826&output=embed"
+width="100%"
+height="400">
+</iframe>
+
+<a class="gpsBtn"
+href="https://maps.app.goo.gl/6e7FYAde83PTVfzW7"
+target="_blank">
+📍 ABRIR GPS
+</a>
+
+</div>
+
+<div class="card">
+<h2>📸 GALERÍA</h2>
+
+<div class="carousel">
+<button class="navBtn prev" onclick="prev()">◀</button>
+<img id="slide" src="foto1.jpg">
+<button class="navBtn next" onclick="next()">▶</button>
+</div>
+
+</div>
+
+<div class="card">
+<h2>✅ CONFIRMAR ASISTENCIA</h2>
+
+<a class="waBtn"
+href="https://wa.me/549342216819?text=Voy%20al%20Level%20Up%20de%20Chechu"
+target="_blank">
+CONFIRMAR POR WHATSAPP
+</a>
+
+</div>
+
+</div>
+
+<audio id="music" loop>
+<source src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3">
+</audio>
+
+<script>
+
+function startGame(){
+document.getElementById("startScreen").style.display="none";
+document.getElementById("main").style.display="block";
+document.getElementById("music").play();
+setTimeout(fireworks,2000);
+}
+
+function fireworks(){
+for(let i=0;i<120;i++){
+let c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"vw";
+c.style.background=["#ff4df0","#00ffe1","#ffd54a","#00ff6a"][Math.floor(Math.random()*4)];
+document.body.appendChild(c);
+}
+}
+
+var eventDate=new Date("Apr 24 2026 21:00").getTime();
+
+setInterval(function(){
+var now=new Date().getTime();
+var dist=eventDate-now;
+
+if(dist<0){
+document.getElementById("countdown").innerHTML="🎮 GAME START";
+return;
+}
+
+var d=Math.floor(dist/(1000*60*60*24));
+var h=Math.floor((dist%(1000*60*60*24))/(1000*60*60));
+var m=Math.floor((dist%(1000*60*60))/(1000*60));
+
+document.getElementById("countdown").innerHTML="⏳ "+d+"d "+h+"h "+m+"m";
+
+},1000);
+
+var images=["foto1.jpg","foto2.jpg","foto3.jpg","foto4.jpg"];
+var i=0;
+
+function next(){ i++; if(i>=images.length){i=0} document.getElementById("slide").src=images[i] }
+function prev(){ i--; if(i<0){i=images.length-1} document.getElementById("slide").src=images[i] }
+
+</script>
+
+</body>
+</html>
