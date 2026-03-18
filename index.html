@@ -130,6 +130,259 @@ from{transform:scale(1)}
 to{transform:scale(1.15)}
 }
 
+/* ⭐ CARRUSEL NUCLEAR */
+
+.carouselPro{
+width:600px;
+height:400px;
+margin:40px auto;
+position:relative;
+overflow:hidden;
+border-radius:20px;
+box-shadow:0 0 40px #00ffe1;
+background:black;
+}
+
+.carouselPro img{
+position:absolute;
+width:100%;
+height:100%;
+top:0;
+left:0;
+object-fit:cover;
+opacity:0;
+transition:opacity 1s;
+}
+
+.carouselPro img.active{
+opacity:1;
+}
+
+.countdown{
+color:#ff4df0;
+font-size:20px;
+margin-top:20px;
+}
+
+.gpsBtn,.waBtn{
+display:inline-block;
+margin-top:20px;
+background:#00ffe1;
+color:black;
+padding:16px 28px;
+text-decoration:none;
+border-radius:10px;
+box-shadow:0 0 15px #00ffe1;
+}
+
+iframe{
+box-shadow:0 0 30px #00ffe1;
+border-radius:12px;
+margin-top:20px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:700px){
+.carouselPro{
+width:90%;
+height:300px;
+}
+.bar{
+width:90%;
+}
+.levelup{
+font-size:40px;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="startScreen">
+<h1>🎮 CHECHU</h1>
+<div class="coin">INSERT COIN</div>
+<button class="startBtn" onclick="startGame()">PRESS START</button>
+</div>
+
+<div class="container" id="main">
+
+<h1>LEVEL COMPLETE</h1>
+<h2>Nivel 39 completado</h2>
+
+<div class="bar"><div class="fill"></div></div>
+<div class="levelup">LEVEL UP 40</div>
+
+<div class="countdown" id="countdown"></div>
+
+<div class="card">
+<h2>🎯 MISIÓN</h2>
+<h2>Celebrar el LEVEL UP de CHECHU</h2>
+<p>📅 24/04/2026</p>
+<p>🕒 21:00 HS</p>
+<p>📍 CLUB ESCALANTITO</p>
+
+<iframe
+src="https://www.google.com/maps?q=-31.6197018,-60.7007826&output=embed"
+width="100%"
+height="400"
+style="border:0;">
+</iframe>
+
+<a class="gpsBtn"
+href="https://maps.app.goo.gl/6e7FYAde83PTVfzW7"
+target="_blank">
+📍 ABRIR GPS
+</a>
+
+</div>
+
+<div class="card">
+<h2>📸 NIVELES SUPERADOS</h2>
+
+<div class="carouselPro">
+<img src="foto1.jpeg" class="active">
+<img src="foto2.jpeg">
+<img src="foto3.jpeg">
+<img src="foto4.jpeg">
+<img src="foto5.jpeg">
+<img src="foto6.jpeg">
+<img src="foto7.jpeg">
+<img src="foto8.jpeg">
+<img src="foto9.jpeg">
+<img src="foto10.jpeg">
+<img src="foto11.jpeg">
+<img src="foto12.jpeg">
+<img src="foto13.jpeg">
+<img src="foto14.jpeg">
+<img src="foto15.jpeg">
+<img src="foto16.jpeg">
+<img src="foto17.jpeg">
+<img src="foto18.jpeg">
+<img src="foto19.jpeg">
+<img src="foto20.jpeg">
+<img src="foto21.jpeg">
+<img src="foto22.jpeg">
+<img src="foto23.jpeg">
+<img src="foto24.jpeg">
+<img src="foto25.jpeg">
+<img src="foto26.jpeg">
+<img src="foto27.jpeg">
+<img src="foto28.jpeg">
+<img src="foto29.jpeg">
+<img src="foto30.jpeg">
+</div>
+
+</div>
+
+<div class="card">
+<h2>✅ CONFIRMAR ASISTENCIA</h2>
+
+<a class="waBtn"
+href="https://wa.me/549342216819?text=Voy%20al%20Level%20Up%20de%20Chechu"
+target="_blank">
+CONFIRMAR POR WHATSAPP
+</a>
+
+</div>
+
+</div>
+
+<script>
+
+function startGame(){
+document.getElementById("startScreen").style.display="none";
+document.getElementById("main").style.display="block";
+}
+
+/* CARRUSEL */
+
+var slides = document.querySelectorAll(".carouselPro img");
+var i = 0;
+
+setInterval(function(){
+
+slides[i].classList.remove("active");
+
+i++;
+if(i >= slides.length){ i = 0; }
+
+slides[i].classList.add("active");
+
+},1200);
+
+</script>
+
+</body>
+</html>margin-top:30px;
+background:#00ffe1;
+border:none;
+padding:20px 40px;
+cursor:pointer;
+box-shadow:0 0 25px #00ffe1;
+}
+
+/* CONTENIDO */
+
+.container{
+display:none;
+padding:60px 20px;
+max-width:1300px;
+margin:auto;
+}
+
+.card{
+background:rgba(0,0,0,0.75);
+border:2px solid #00ffe1;
+padding:40px;
+margin:40px auto;
+border-radius:14px;
+transition:.4s;
+}
+
+.card:hover{
+transform:scale(1.03);
+box-shadow:0 0 40px #00ffe1;
+}
+
+/* BARRA */
+
+.bar{
+width:420px;
+height:30px;
+background:#111;
+margin:30px auto;
+border-radius:20px;
+overflow:hidden;
+border:2px solid #00ffe1;
+}
+
+.fill{
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#00ffe1,#00ff6a);
+animation:load 6s forwards;
+}
+
+@keyframes load{
+from{width:0}
+to{width:100%}
+}
+
+.levelup{
+font-size:60px;
+color:#00ff6a;
+text-shadow:0 0 30px #00ff6a;
+animation:pulse 1.5s infinite alternate;
+}
+
+@keyframes pulse{
+from{transform:scale(1)}
+to{transform:scale(1.15)}
+}
+
 /* 🎮 CARRUSEL PRO (ALTURA FIJA) */
 
 .carouselPro{
