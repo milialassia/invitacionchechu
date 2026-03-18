@@ -130,11 +130,12 @@ from{transform:scale(1)}
 to{transform:scale(1.15)}
 }
 
-/* 🎮 CARRUSEL PRO */
+/* 🎮 CARRUSEL PRO (ALTURA FIJA) */
 
 .carouselPro{
 position:relative;
 max-width:600px;
+height:400px;
 margin:auto;
 overflow:hidden;
 border-radius:20px;
@@ -143,13 +144,9 @@ box-shadow:0 0 40px #00ffe1;
 
 .carouselPro img{
 width:100%;
+height:100%;
+object-fit:cover;
 transition:1s;
-animation:zoom 6s infinite alternate;
-}
-
-@keyframes zoom{
-from{transform:scale(1)}
-to{transform:scale(1.15)}
 }
 
 .glitch{
@@ -189,21 +186,25 @@ border-radius:10px;
 box-shadow:0 0 15px #00ffe1;
 }
 
-.confetti{
-position:fixed;
-width:8px;
-height:8px;
-top:-10px;
-animation:fall 3s linear infinite;
-}
-
-@keyframes fall{
-to{transform:translateY(100vh)}
-}
-
 iframe{
 box-shadow:0 0 30px #00ffe1;
 border-radius:12px;
+margin-top:20px;
+}
+
+/* 📱 RESPONSIVE */
+
+@media(max-width:700px){
+.carouselPro{
+max-width:90%;
+height:300px;
+}
+.bar{
+width:90%;
+}
+.levelup{
+font-size:40px;
+}
 }
 
 </style>
@@ -237,7 +238,8 @@ border-radius:12px;
 <iframe
 src="https://www.google.com/maps?q=-31.6197018,-60.7007826&output=embed"
 width="100%"
-height="400">
+height="400"
+style="border:0;">
 </iframe>
 
 <a class="gpsBtn"
@@ -245,7 +247,7 @@ href="https://maps.app.goo.gl/6e7FYAde83PTVfzW7"
 target="_blank">
 📍 ABRIR GPS
 </a>
- 
+
 </div>
 
 <div class="card">
@@ -278,7 +280,9 @@ document.getElementById("startScreen").style.display="none";
 document.getElementById("main").style.display="block";
 }
 
-var images = [
+/* CARRUSEL */
+
+var images=[
 "foto1.jpeg","foto2.jpeg","foto3.jpeg","foto4.jpeg","foto5.jpeg",
 "foto6.jpeg","foto7.jpeg","foto8.jpeg","foto9.jpeg","foto10.jpeg",
 "foto11.jpeg","foto12.jpeg","foto13.jpeg","foto14.jpeg","foto15.jpeg",
@@ -290,12 +294,10 @@ var images = [
 var i=0;
 
 setInterval(function(){
-
 i++;
 if(i>=images.length){i=0;}
 
 var slide=document.getElementById("slide");
-
 slide.style.opacity=0;
 
 setTimeout(function(){
@@ -303,7 +305,7 @@ slide.src=images[i];
 slide.style.opacity=1;
 },300);
 
-},900);
+},1200);
 
 </script>
 
