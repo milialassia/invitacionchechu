@@ -17,7 +17,7 @@ overflow-x:hidden;
 background:black;
 }
 
-/* GRID FONDO */
+/* GRID */
 
 body::before{
 content:"";
@@ -94,6 +94,8 @@ transform:scale(1.03);
 box-shadow:0 0 40px #00ffe1;
 }
 
+/* BARRA */
+
 .bar{
 width:420px;
 height:30px;
@@ -128,34 +130,47 @@ from{transform:scale(1)}
 to{transform:scale(1.15)}
 }
 
-.carousel{
+/* 🎮 CARRUSEL PRO */
+
+.carouselPro{
 position:relative;
 max-width:900px;
 margin:auto;
+overflow:hidden;
+border-radius:20px;
+box-shadow:0 0 40px #00ffe1;
 }
 
-.carousel img{
+.carouselPro img{
 width:100%;
-border-radius:12px;
 transition:1s;
+animation:zoom 6s infinite alternate;
 }
 
-.carousel img:hover{
-transform:scale(1.05);
+@keyframes zoom{
+from{transform:scale(1)}
+to{transform:scale(1.15)}
 }
 
-.navBtn{
+.glitch{
 position:absolute;
-top:50%;
-transform:translateY(-50%);
-background:#00ffe1;
-border:none;
-padding:12px;
-cursor:pointer;
+width:100%;
+height:100%;
+top:0;
+left:0;
+background:linear-gradient(transparent,#ff00ff33,transparent);
+mix-blend-mode:screen;
+animation:glitch 2s infinite;
 }
 
-.prev{left:0}
-.next{right:0}
+@keyframes glitch{
+0%{opacity:0}
+20%{opacity:.4}
+40%{opacity:0}
+60%{opacity:.5}
+80%{opacity:0}
+100%{opacity:.3}
+}
 
 .countdown{
 color:#ff4df0;
@@ -172,18 +187,6 @@ padding:16px 28px;
 text-decoration:none;
 border-radius:10px;
 box-shadow:0 0 15px #00ffe1;
-}
-
-.waBtn{
-animation:shake 2s infinite;
-}
-
-@keyframes shake{
-0%{transform:rotate(0)}
-25%{transform:rotate(2deg)}
-50%{transform:rotate(0)}
-75%{transform:rotate(-2deg)}
-100%{transform:rotate(0)}
 }
 
 .confetti{
@@ -220,7 +223,6 @@ border-radius:12px;
 <h2>Nivel 39 completado</h2>
 
 <div class="bar"><div class="fill"></div></div>
-
 <div class="levelup">LEVEL UP 40</div>
 
 <div class="countdown" id="countdown"></div>
@@ -228,77 +230,21 @@ border-radius:12px;
 <div class="card">
 <h2>🎯 MISIÓN</h2>
 <h2>Celebrar el LEVEL UP de CHECHU</h2>
-
 <p>📅 24/04/2026</p>
 <p>🕒 21:00 HS</p>
 <p>📍 CLUB ESCALANTITO</p>
-
-<iframe
-src="https://www.google.com/maps?q=-31.6197018,-60.7007826&output=embed"
-width="100%"
-height="400">
-</iframe>
-
-<a class="gpsBtn"
-href="https://maps.app.goo.gl/6e7FYAde83PTVfzW7"
-target="_blank">
-📍 ABRIR GPS
-</a>
-
 </div>
 
 <div class="card">
-<h2>📸 NIVELES SUPERADOS </h2>
+<h2>📸 NIVELES SUPERADOS</h2>
 
-<div class="carousel">
-<button class="navBtn prev" onclick="prev()">◀</button>
+<div class="carouselPro">
 <img id="slide" src="foto1.jpeg">
-<button class="navBtn next" onclick="next()">▶</button>
+<div class="glitch"></div>
 </div>
 
 </div>
 
-.carouselPro{
-position:relative;
-max-width:900px;
-margin:auto;
-overflow:hidden;
-border-radius:20px;
-box-shadow:0 0 40px #00ffe1;
-}
-
-.carouselPro img{
-width:100%;
-transition:1.2s;
-animation:zoom 6s infinite alternate;
-}
-
-@keyframes zoom{
-from{transform:scale(1)}
-to{transform:scale(1.15)}
-}
-
-.glitch{
-position:absolute;
-width:100%;
-height:100%;
-top:0;
-left:0;
-background:linear-gradient(transparent, #ff00ff33, transparent);
-mix-blend-mode:screen;
-animation:glitch 2s infinite;
-}
-
-@keyframes glitch{
-0%{opacity:0}
-20%{opacity:.4}
-40%{opacity:0}
-60%{opacity:.5}
-80%{opacity:0}
-100%{opacity:.3}
-}
-
-  
 <div class="card">
 <h2>✅ CONFIRMAR ASISTENCIA</h2>
 
@@ -312,47 +258,12 @@ CONFIRMAR POR WHATSAPP
 
 </div>
 
-<audio id="music" loop>
-<source src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3">
-</audio>
-
 <script>
 
 function startGame(){
 document.getElementById("startScreen").style.display="none";
 document.getElementById("main").style.display="block";
-document.getElementById("music").play();
-setTimeout(fireworks,2000);
 }
-
-function fireworks(){
-for(let i=0;i<120;i++){
-let c=document.createElement("div");
-c.className="confetti";
-c.style.left=Math.random()*100+"vw";
-c.style.background=["#ff4df0","#00ffe1","#ffd54a","#00ff6a"][Math.floor(Math.random()*4)];
-document.body.appendChild(c);
-}
-}
-
-var eventDate=new Date("Apr 24 2026 21:00").getTime();
-
-setInterval(function(){
-var now=new Date().getTime();
-var dist=eventDate-now;
-
-if(dist<0){
-document.getElementById("countdown").innerHTML="🎮 GAME START";
-return;
-}
-
-var d=Math.floor(dist/(1000*60*60*24));
-var h=Math.floor((dist%(1000*60*60*24))/(1000*60*60));
-var m=Math.floor((dist%(1000*60*60))/(1000*60));
-
-document.getElementById("countdown").innerHTML="⏳ "+d+"d "+h+"h "+m+"m";
-
-},1000);
 
 var images = [
 "foto1.jpeg","foto2.jpeg","foto3.jpeg","foto4.jpeg","foto5.jpeg",
@@ -362,28 +273,24 @@ var images = [
 "foto21.jpeg","foto22.jpeg","foto23.jpeg","foto24.jpeg","foto25.jpeg",
 "foto26.jpeg","foto27.jpeg","foto28.jpeg","foto29.jpeg","foto30.jpeg"
 ];
-var i = 0;
 
-setInterval(function(){
-i++;
-if(i >= images.length){ i = 0; }
-
-var slide = document.getElementById("slide");
-
-slide.style.opacity = 0;
-slide.style.transform = "scale(0.9)";
-
-setTimeout(function(){
-slide.src = images[i];
-slide.style.opacity = 1;
-slide.style.transform = "scale(1.1)";
-},300);
-
-},1000);
 var i=0;
 
-function next(){ i++; if(i>=images.length){i=0} document.getElementById("slide").src=images[i] }
-function prev(){ i--; if(i<0){i=images.length-1} document.getElementById("slide").src=images[i] }
+setInterval(function(){
+
+i++;
+if(i>=images.length){i=0;}
+
+var slide=document.getElementById("slide");
+
+slide.style.opacity=0;
+
+setTimeout(function(){
+slide.src=images[i];
+slide.style.opacity=1;
+},300);
+
+},900);
 
 </script>
 
