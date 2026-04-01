@@ -287,26 +287,120 @@ transition:0.3s;
 </div>
 </div>
 
-<div class="card">
-<h2>💰 APORTES</h2>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Confirmar Asistencia</title>
+<style>
+body {
+  background: #000;
+  color: #fff;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+}
 
-<p class="sub">Alias</p>
+.container {
+  margin-top: 40px;
+}
 
-<div class="aliasBox" onclick="copiarAlias()">
-CHECHUCUMPLE40
+.alias-box {
+  margin-top: 10px;
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+
+.copy-btn {
+  margin-top: 10px;
+  padding: 6px 12px;
+  font-size: 12px;
+  background: #111;
+  color: #00ffc3;
+  border: 1px solid #00ffc3;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* 👇 efecto gamer suave */
+.copy-btn:hover {
+  background: #00ffc3;
+  color: #000;
+  box-shadow: 0 0 6px #00ffc3;
+}
+
+.copy-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 3px #00ffc3;
+}
+
+/* mensaje pequeño */
+.copied-msg {
+  margin-top: 6px;
+  font-size: 11px;
+  color: #00ffc3;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.copied-msg.show {
+  opacity: 0.7;
+}
+
+.send-btn {
+  margin-top: 30px;
+  padding: 14px 30px;
+  font-size: 16px;
+  background: #00ffc3;
+  color: #000;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 0 12px #00ffc3;
+  transition: all 0.2s ease;
+}
+
+.send-btn:hover {
+  transform: scale(1.05);
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>✅ CONFIRMAR ASISTENCIA</h2>
+
+  <p>Valor Tarjeta</p>
+  <p>👨 Adultos: $17.000</p>
+  <p>🧒 Menores 12 años: $10.000</p>
+  <p>🍹 La bebida se adquiere en el club</p>
+  <p>⏳ Fecha límite: 16/04/2026</p>
+
+  <p>Alias para transferencia</p>
+  <div class="alias-box" id="alias">CHECHUCUMPLE40</div>
+
+  <button class="copy-btn" onclick="copyAlias()">Copiar alias</button>
+  <div class="copied-msg" id="copiedMsg">✓ Alias copiado</div>
+
+  <button class="send-btn">📲 ENVIAR COMPROBANTE</button>
 </div>
 
-<button class="copyBtn" onclick="copiarAlias()">📋 Copiar alias</button>
+<script>
+function copyAlias() {
+  const alias = document.getElementById("alias").innerText;
+  navigator.clipboard.writeText(alias);
 
-<p id="copiadoMsg">✔ Alias copiado</p>
+  const msg = document.getElementById("copiedMsg");
+  msg.classList.add("show");
 
-<a class="waBtn"
-href="https://wa.me/549342216819?text=Ya%20realicé%20la%20transferencia%20🎮"
-target="_blank">
-📲 Enviar comprobante
-</a>
+  setTimeout(() => {
+    msg.classList.remove("show");
+  }, 2000);
+}
+</script>
 
-</div>
+</body>
+</html>
 
 </div>
 
