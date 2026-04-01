@@ -38,6 +38,21 @@ from{background-position:0 0}
 to{background-position:0 60px}
 }
 
+/* FLASH */
+
+#flash{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:white;
+opacity:0;
+pointer-events:none;
+z-index:200;
+transition:opacity 0.3s;
+}
+
 /* START */
 
 #startScreen{
@@ -50,6 +65,7 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 z-index:100;
+transition:opacity 0.5s;
 }
 
 .coin{
@@ -62,6 +78,8 @@ animation:blink 1s infinite;
 50%{opacity:0}
 }
 
+/* BOTON PRO */
+
 .startBtn{
 margin-top:30px;
 background:#00ffe1;
@@ -72,43 +90,41 @@ font-family:'Press Start 2P', cursive;
 font-size:14px;
 color:black;
 border-radius:8px;
+display:inline-block;
 
-/* GLOW */
 box-shadow:0 0 10px #00ffe1,
            0 0 20px #00ffe1,
            0 0 40px #00ffe1;
 
-/* ANIMACIÓN */
-animation:arcadePulse 1.2s infinite alternate;
+animation:arcadePulse 1.2s ease-in-out infinite alternate;
 
-transition:0.2s;
+transition:transform 0.2s, background 0.2s, box-shadow 0.2s;
 }
 
-/* PULSO */
 @keyframes arcadePulse{
-from{
+0%{
   box-shadow:0 0 10px #00ffe1,
              0 0 20px #00ffe1;
 }
-to{
+100%{
   box-shadow:0 0 20px #00ffe1,
              0 0 40px #00ffe1,
              0 0 80px #00ffe1;
 }
 }
 
-/* HOVER */
 .startBtn:hover{
 transform:scale(1.1);
 background:#00ff6a;
 box-shadow:0 0 20px #00ff6a,
-           0 0 60px #00ff6a;
+           0 0 60px #00ff6a,
+           0 0 100px #00ff6a;
 }
 
-/* CLICK (MUY IMPORTANTE) */
 .startBtn:active{
 transform:scale(0.95);
 box-shadow:0 0 10px #00ff6a;
+animation:none;
 }
 
 /* CONTENIDO */
@@ -184,16 +200,16 @@ background:black;
 }
 
 .carouselPro img{
-  position:absolute;
-  width:100%;
-  height:100%;
-  top:0;
-  left:0;
-  object-fit:contain; /* 👈 clave */
-  background:black;   /* 👈 relleno negro */
-  opacity:0;
-  transition:opacity 1.2s ease-in-out;
-  z-index:0;
+position:absolute;
+width:100%;
+height:100%;
+top:0;
+left:0;
+object-fit:contain;
+background:black;
+opacity:0;
+transition:opacity 1.2s ease-in-out;
+z-index:0;
 }
 
 .carouselPro img.active{
@@ -201,7 +217,7 @@ opacity:1;
 z-index:1;
 }
 
-/* OTROS */
+/* BOTONES */
 
 .gpsBtn,.waBtn{
 display:inline-block;
@@ -240,6 +256,8 @@ font-size:40px;
 
 <body>
 
+<div id="flash"></div>
+
 <div id="startScreen">
 <h1>🎮 CHECHU</h1>
 <div class="coin">INSERT COIN</div>
@@ -260,28 +278,18 @@ font-size:40px;
 <p>🕒 21:00 HS</p>
 <p>📍 CLUB ESCALANTITO</p>
 
-<iframe
-src="https://www.google.com/maps?q=-31.6197018,-60.7007826&output=embed"
-width="100%"
-height="400"
-style="border:0;">
-</iframe>
+<iframe src="https://www.google.com/maps?q=-31.6197018,-60.7007826&output=embed" width="100%" height="400"></iframe>
 
-<a class="gpsBtn"
-href="https://maps.app.goo.gl/6e7FYAde83PTVfzW7"
-target="_blank">
+<a class="gpsBtn" href="https://maps.app.goo.gl/6e7FYAde83PTVfzW7" target="_blank">
 📍 ABRIR GPS
 </a>
 
-
-  
 </div>
 
 <div class="card">
 <h2>📸 NIVELES SUPERADOS</h2>
 
 <div class="carouselPro">
-
 <img src="foto1.jpeg" class="active">
 <img src="foto2.jpeg">
 <img src="foto3.jpeg">
@@ -312,7 +320,6 @@ target="_blank">
 <img src="foto28.jpeg">
 <img src="foto29.jpeg">
 <img src="foto30.jpeg">
-
 </div>
 
 </div>
@@ -330,19 +337,39 @@ CONFIRMAR POR WHATSAPP
 
 </div>
 
+<audio id="startSound">
+<source src="https://www.myinstants.com/media/sounds/coin.mp3" type="audio/mpeg">
+</audio>
+
 <script>
 
 function startGame(){
-document.getElementById("startScreen").style.display="none";
-document.getElementById("main").style.display="block";
+
+  const sound = document.getElementById("startSound");
+  const flash = document.getElementById("flash");
+
+  sound.currentTime = 0;
+  sound.play();
+
+  flash.style.opacity = "1";
+
+  setTimeout(()=>{ flash.style.opacity = "0"; },150);
+
+  setTimeout(()=>{
+    document.getElementById("startScreen").style.opacity = "0";
+  },200);
+
+  setTimeout(()=>{
+    document.getElementById("startScreen").style.display = "none";
+    document.getElementById("main").style.display = "block";
+  },600);
 }
 
-/* 🎬 CARRUSEL FIX TOTAL */
+/* 🎬 CARRUSEL */
 
 window.addEventListener("load", () => {
 
   const slides = document.querySelectorAll(".carouselPro img");
-
   if (!slides.length) return;
 
   let index = 0;
@@ -350,9 +377,7 @@ window.addEventListener("load", () => {
   setInterval(() => {
 
     slides[index].classList.remove("active");
-
     index = (index + 1) % slides.length;
-
     slides[index].classList.add("active");
 
   }, 2000);
