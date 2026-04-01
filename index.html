@@ -348,8 +348,10 @@ function startGame(){
   const sound = document.getElementById("startSound");
   const flash = document.getElementById("flash");
 
-  sound.currentTime = 0;
-  sound.play();
+  if (sound) {
+    sound.currentTime = 0;
+    sound.play().catch(()=>{}); // 🔥 FIX CLAVE
+  }
 
   flash.style.opacity = "1";
 
